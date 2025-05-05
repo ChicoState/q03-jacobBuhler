@@ -43,6 +43,17 @@ TEST(GuesserTest, long_guess)
   object.match("areallyreallylongpasswordthatiswayyyyyyylong");
   ASSERT_FALSE(object.match("Secret"));
 }
+TEST(GuesserTest, short_guess)
+{
+  Guesser object("Secret");
+  object.match("123");
+  ASSERT_EQ(object.remaining(), 2);
+}
+TEST(GuesserTest, truncate_guess)
+{
+  Guesser object("asdfasdfasdfasdfasdfasdfasdfasdfasdf"); //36
+  ASSERT_TRUE(object.match("asdfasdfasdfasdfasdfasdfasdfasdf"));//32
+}
 TEST(GuesserTest, reset_guesses)
 {
   Guesser object("Secret");
